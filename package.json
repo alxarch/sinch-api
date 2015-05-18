@@ -12,7 +12,7 @@
     "url": "git@bitbucket.org:alxarch/sinch-client"
   },
   "author": "Alexandors Sigalas <alxarch@gmail.com>",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "devDependencies": {
     "coffee-script": "^1.9.2"
   },
