@@ -1,0 +1,23 @@
+{
+  "name": "sinch-api",
+  "version": "0.1.0",
+  "description": "Sinch API client for nodeJS",
+  "main": "lib/sinch.js",
+  "scripts": {
+	"prepublish": "cake build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:alxarch/sinch-client"
+  },
+  "author": "Alexandors Sigalas <alxarch@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "coffee-script": "^1.9.2"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.25",
+    "lodash": "^3.8.0"
+  }
+}
