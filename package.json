@@ -1,6 +1,6 @@
 {
   "name": "sinch-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Sinch API client for nodeJS",
   "main": "lib/sinch.js",
   "scripts": {

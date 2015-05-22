@@ -176,24 +176,48 @@ ReportingAPI
 VerificationAPI
 ---------------
 
+
+> WARNING: The verification API changed on 2015-05-21.
+> The legacy verification API is not supported.
+
 	class VerificationAPI extends SinchAPI
 		host: "api.sinch.com"
 		path: "/verification"
-		flashCall: (msisdn, options={}) ->
+
+		reportSms: (type, endpoint, code, cli) ->
+			@request "PUT", "/verifications/#{type}/#{endpoint}",
+				method: "sms"
+				sms: {code, cli}
+
+		reportFlashCall: (type, endpoint, cli) ->
+			@request "PUT", "/verifications/#{type}/#{endpoint}",
+				method: "flashCall"
+				flashCall: {cli}
+
+		requestSMS: (msisdn, options={}) ->
+			@request "POST", "/verifications",
+				identity:
+					type: "number"
+					endpoint: "#{msisdn}".replace /^\+?0*/, '+'
+				method: "sms"
+				reference: options.reference
+				custom: options.custom
+
+		requestFlashCall: (msisdn, options={}) ->
 			@request "POST", "/verifications",
 				identity:
 					type: "number"
 					endpoint: "#{msisdn}".replace /^\+?0*/, '+'
 				method: "flashCall"
-				options:
-					cli: cli
-					intercepted: options.intercepted or yes
+				options: _.pick options, "cli", "intercepted"
 				reference: options.reference
 				custom: options.custom
 
-		status: (id, reference) ->
-			method = if reference then "reference" else "id"
-			@request "GET", "/verifications/#{method}/#{id}"
+		find: (id) ->
+			@request "GET", "/verifications/id/#{id}"
+
+		findByReference: (ref) ->
+			@request "GET", "/verifications/reference/#{id}"
 
 
 
