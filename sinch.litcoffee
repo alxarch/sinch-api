@@ -87,7 +87,7 @@ REST APIs
 		request: (method, path, data, unsigned) ->
 			host = @host
 			headers = {}
-			path = "/#{@version}#{path}"
+			path = "#{@path or ''}/#{@version}#{path}"
 			msg = {method, headers, path, host}
 			if data
 				body = new Buffer JSON.stringify data
@@ -177,11 +177,14 @@ VerificationAPI
 ---------------
 
 	class VerificationAPI extends SinchAPI
-		host: "userapi.sinch.com"
-		verify: (identity, cli, options={}) ->
+		host: "api.sinch.com"
+		path: "/verification"
+		flashCall: (msisdn, options={}) ->
 			@request "POST", "/verifications",
-				identity: identity
-				method: options.method or "flashCall"
+				identity:
+					type: "number"
+					endpoint: "#{msisdn}".replace /^\+?0*/, '+'
+				method: "flashCall"
 				options:
 					cli: cli
 					intercepted: options.intercepted or yes
